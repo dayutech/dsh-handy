@@ -1,0 +1,81 @@
+{
+  "name": "dsh-handy",
+  "version": "0.4.0",
+  "description": "Handy: practical extras for DeepSeek Harness — custom turn forks, fast file-tab closing, workspace-scoped nested session groups, session highlighting, and a workspace session-tree view.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node --check lib/index.js && node --check lib/client.js",
+    "prepack": "npm run build",
+    "pack:dry": "npm pack --dry-run"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-ui-commands",
+        "@deepseek-ai/dsh-api-session-controller"
+      ],
+      "platform": "web"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.1-rc.3": "compatible"
+      }
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "handy",
+    "fork",
+    "session",
+    "session-tree",
+    "workspace"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dayutech/dsh-handy.git"
+  },
+  "homepage": "https://github.com/dayutech/dsh-handy#readme",
+  "bugs": {
+    "url": "https://github.com/dayutech/dsh-handy/issues"
+  },
+  "author": "leo",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
