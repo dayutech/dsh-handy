@@ -7,11 +7,11 @@ A DeepSeek Harness Web plugin that adds per-session notes, a draggable key-infor
 ## Features
 
 - **Per-session notebook** — a `对话 / 轨迹 / 笔记本` view with auto-saved local notes.
-- **Key-information panel** — a draggable per-session panel for targets, SSH/Web/database credentials, and free-form notes. It stays inside the conversation column, follows the column when the right sidebar opens, and can inject all completed fields into the current session queue.
+- **Key-information panel** — a draggable per-session panel for targets, SSH/Web/database credentials, and free-form notes. It stays inside the conversation column, follows the column when the right sidebar opens, supports per-item injection, and keeps inject/copy/delete actions visible when an item is collapsed. The collapsed badge can be right-dragged.
 - **Fork inheritance** — native fork and `/fork` copy the source session's notebook and key information, including collapsed-item and panel-position state.
 - **Workspace session groups** — logical folders under a workspace, with up to three levels of nesting and drag-to-group support.
 - **Session highlighting** — star important sessions from the row or the row menu.
-- **Running-workspace priority** — workspaces with a running session move to the top and use a blue running spinner.
+- **Running-workspace priority** — workspaces with a running session or running subagent move to the top and use a blue running spinner.
 - **Right-sidebar tab bulk close** — close current, left, right, or all tabs for every tab kind; the dock's built-in close menu row is hidden in favor of the plugin action.
 
 ## Feature details
@@ -22,9 +22,11 @@ The notebook is a third conversation view tab next to the conversation and traje
 
 ### Key-information panel
 
-The key-information panel is hidden behind a key badge in the session header. It stores name/value/note items for targets, SSH, web, and database credentials, plus arbitrary custom items. Items can be collapsed individually or all at once. The panel can be dragged inside the conversation column, remembers its position per session, follows the column when the right sidebar opens, and resets on title double-click.
+The key-information panel is hidden behind a key badge in the session header. It stores name/value/note items for targets, SSH, web, and database credentials, plus arbitrary custom items. Items can be collapsed individually or all at once; a collapsed item keeps its inject, copy, and delete actions. Each item has its own inject action, while the footer still injects all items with values.
 
-"Inject again" sends every item with a value, plus its note, to the end of the current session queue; empty values are skipped. If another DSH process owns the session write handle, injection reports that the session is in use instead of failing silently. Values are plain local storage data and are only sent when you click inject.
+The expanded panel can be dragged from its header. When collapsed, the badge can be right-dragged to move within the conversation column. Position is remembered per session, follows the column when the right sidebar opens, and resets on title double-click.
+
+Per-item or footer injection sends the selected item(s) and notes to the end of the current session queue; empty values are skipped. If another DSH process owns the session write handle, injection reports that the session is in use instead of failing silently. Values are plain local storage data and are only sent when you click inject.
 
 ### Fork inheritance
 
@@ -40,7 +42,7 @@ A row star or the row menu's "mark as important" action adds a colored gradient 
 
 ### Running workspace priority
 
-A workspace containing a running session is promoted to the top of the sidebar. Multiple running workspaces keep the host's relative order, and the normal host order returns when the runs finish. The running spinner is blue with a small glow; this is a display change only.
+A workspace containing a running session or a running subagent of one of its sessions is promoted to the top of the sidebar. Multiple running workspaces keep the host's relative order, and the normal host order returns when the runs finish. The running spinner is blue with a small glow; this is a display change only.
 
 ### Right-sidebar tab close
 

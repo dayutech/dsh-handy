@@ -16,9 +16,25 @@ export function installWorkspaceSort(ctx) {
       };
     };
 
+    const runningSubagentCount = (sessionId, list, statuses) => {
+      const children =
+        list?.projectionsBySession?.[sessionId]?.values?.subagentCatalog;
+      if (!Array.isArray(children)) return 0;
+      return children.reduce(
+        (count, child) =>
+          count +
+          (statuses.get(child.id)?.running === true ||
+          list?.byId?.[child.id]?.running === true
+            ? 1
+            : 0),
+        0,
+      );
+    };
+
     const isRunning = (sessionId, list, statuses) =>
       statuses.get(sessionId)?.running === true ||
-      list?.byId?.[sessionId]?.running === true;
+      list?.byId?.[sessionId]?.running === true ||
+      runningSubagentCount(sessionId, list, statuses) > 0;
 
     const sync = () => {
       const { list, workspaces, statuses } = readSnapshots();

@@ -681,16 +681,20 @@ body[data-ds-dark-theme] .hy-dashboard { background: var(--dsw-specific-conversa
   appearance: none;
   border: 0;
   background: none;
-  width: 18px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   color: var(--hy-text-3);
   cursor: pointer;
-  font-size: 15px;
   line-height: 1;
 }
 .hy-key-chevron:hover { color: var(--hy-brand); }
+.hy-key-chevron-svg { display: block; transition: transform .15s ease; }
+.hy-key-chevron-svg[data-collapsed="true"] { transform: rotate(-90deg); }
 .hy-key-summary {
   appearance: none;
   border: 0;
@@ -718,7 +722,9 @@ body[data-ds-dark-theme] .hy-dashboard { background: var(--dsw-specific-conversa
   font: 600 12px/20px var(--dsw-font-family, Inter, sans-serif);
 }
 .hy-key-name::placeholder, .hy-key-note::placeholder, .hy-key-value::placeholder { color: var(--hy-text-3); }
-.hy-key-item-actions { display: flex; align-items: center; gap: 2px; margin-left: auto; }
+.hy-key-item-actions { display: flex; align-items: center; gap: 1px; margin-left: auto; }
+.hy-key-inject-one { color: var(--hy-brand); }
+.hy-key-inject-one:disabled { color: var(--hy-text-3); opacity: .4; cursor: default; }
 .hy-key-mini {
   appearance: none;
   border: 0;

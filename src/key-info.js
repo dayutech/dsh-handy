@@ -33,6 +33,28 @@ function KeyGlyph() {
   );
 }
 
+function ChevronGlyph({ collapsed }) {
+  return h(
+    "svg",
+    {
+      className: "hy-key-chevron-svg",
+      width: 12,
+      height: 12,
+      viewBox: "0 0 16 16",
+      fill: "none",
+      "aria-hidden": "true",
+      "data-collapsed": collapsed ? "true" : "false",
+    },
+    h("path", {
+      d: "m3.5 6 4.5 4.5L12.5 6",
+      stroke: "currentColor",
+      strokeWidth: 1.6,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+    }),
+  );
+}
+
 function buildInjection(items, t) {
   const lines = [t("keyInfo.injectPreamble")];
   for (const item of items) {
@@ -160,10 +182,12 @@ export function KeyInfoPanel({ sessionId, handyActions, t }) {
     if (typeof id === "string") setFocusId(id);
   };
 
-  const startDrag = (event) => {
-    if (event.button !== 0) return;
+  const startDrag = (event, options = {}) => {
+    const fromBadge = options.fromBadge === true;
+    if (fromBadge ? event.button !== 2 : event.button !== 0) return;
     const target = event.target;
     if (
+      !fromBadge &&
       target instanceof Element &&
       target.closest("button, input, textarea, select")
     ) {
@@ -234,6 +258,8 @@ export function KeyInfoPanel({ sessionId, handyActions, t }) {
         title: t("keyInfo.show"),
         "aria-label": t("keyInfo.show"),
         onClick: () => handyActions?.setKeyInfoCollapsed(sid, false),
+        onPointerDown: (event) => startDrag(event, { fromBadge: true }),
+        onContextMenu: (event) => event.preventDefault(),
       },
       h(KeyGlyph),
       count > 0
@@ -265,17 +291,27 @@ export function KeyInfoPanel({ sessionId, handyActions, t }) {
     },
   ];
 
-  const inject = async () => {
-    if (complete.length === 0) {
+  const injectItems = async (subset) => {
+    const ready = subset.filter((item) => item.value.trim() !== "");
+    if (ready.length === 0) {
       handyActions?.say("keyInfo.noItems", undefined, "error");
       return;
     }
     setSending(true);
     try {
-      await handyActions?.sendKeyInfo(sid, buildInjection(items, t));
+      await handyActions?.sendKeyInfo(sid, buildInjection(ready, t));
     } finally {
       setSending(false);
     }
+  };
+
+  const inject = () => injectItems(items);
+  const injectItem = (item) => {
+    if (item.value.trim() === "") {
+      handyActions?.say("keyInfo.noItems", undefined, "error");
+      return;
+    }
+    void injectItems([item]);
   };
 
   return h(
@@ -386,7 +422,7 @@ export function KeyInfoPanel({ sessionId, handyActions, t }) {
                     item.collapsed !== true,
                   ),
               },
-              item.collapsed ? "›" : "⌄",
+              h(ChevronGlyph, { collapsed: item.collapsed }),
             ),
             item.collapsed
               ? h(
@@ -413,35 +449,44 @@ export function KeyInfoPanel({ sessionId, handyActions, t }) {
                       name: event.target.value,
                     }),
                 }),
-            item.collapsed
-              ? null
-              : h(
-                  "span",
-                  { className: "hy-key-item-actions" },
-                  h(
-                    "button",
-                    {
-                      type: "button",
-                      className: "hy-key-mini",
-                      title: t("keyInfo.copy"),
-                      "aria-label": t("keyInfo.copy"),
-                      onClick: () => handyActions?.copy(item.value),
-                    },
-                    "⧉",
-                  ),
-                  h(
-                    "button",
-                    {
-                      type: "button",
-                      className: "hy-key-mini hy-key-remove",
-                      title: t("keyInfo.remove"),
-                      "aria-label": t("keyInfo.remove"),
-                      onClick: () =>
-                        handyActions?.removeKeyInfoItem(sid, item.id),
-                    },
-                    "×",
-                  ),
-                ),
+            h(
+              "span",
+              { className: "hy-key-item-actions" },
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: "hy-key-mini hy-key-inject-one",
+                  title: t("keyInfo.injectOne"),
+                  "aria-label": t("keyInfo.injectOne"),
+                  disabled: sending || item.value.trim() === "",
+                  onClick: () => injectItem(item),
+                },
+                "↗",
+              ),
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: "hy-key-mini",
+                  title: t("keyInfo.copy"),
+                  "aria-label": t("keyInfo.copy"),
+                  onClick: () => handyActions?.copy(item.value),
+                },
+                "⧉",
+              ),
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: "hy-key-mini hy-key-remove",
+                  title: t("keyInfo.remove"),
+                  "aria-label": t("keyInfo.remove"),
+                  onClick: () => handyActions?.removeKeyInfoItem(sid, item.id),
+                },
+                "×",
+              ),
+            ),
           ),
           item.collapsed
             ? null

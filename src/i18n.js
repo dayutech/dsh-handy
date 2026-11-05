@@ -71,7 +71,7 @@ const zh = {
   keyInfo: {
     title: "关键信息",
     badge: "关键信息",
-    show: "展开关键信息",
+    show: "展开关键信息（右键拖动）",
     hide: "隐藏关键信息",
     count: "{n} 项",
     empty: "还没有关键信息。添加目标地址、账号或备注，注入时会一并发送。",
@@ -94,6 +94,7 @@ const zh = {
     expand: "展开条目",
     collapseAll: "全部折叠",
     expandAll: "全部展开",
+    injectOne: "注入此条",
     inject: "再次注入",
     injecting: "注入中…",
     localOnly: "默认仅存本机，注入时发送到当前会话",
@@ -235,7 +236,7 @@ const en = {
   keyInfo: {
     title: "Key information",
     badge: "Key info",
-    show: "Expand key information",
+    show: "Expand key information (right-drag to move)",
     hide: "Hide key information",
     count: "{n} items",
     empty:
@@ -259,6 +260,7 @@ const en = {
     expand: "Expand item",
     collapseAll: "Collapse all",
     expandAll: "Expand all",
+    injectOne: "Inject this item",
     inject: "Inject again",
     injecting: "Injecting…",
     localOnly: "Stored locally; sent only when injected",
