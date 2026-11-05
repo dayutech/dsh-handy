@@ -1,0 +1,5 @@
+# dsh-handy bundle patch: mount the host half. The browser half is declared by
+# package.json `dsh.client` and is loaded by the Web profile's client loader.
+- insert:
+    - id: dsh-handy
+      name: dsh-handy
