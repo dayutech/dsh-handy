@@ -73,7 +73,8 @@ Restart the matching DSH process and refresh the Web page.
 ## Compatibility
 
 - DSH Web client.
-- `engines.dsh`: `>=0.2.1-rc.3 <0.2.2-0`; verified on DSH `0.2.1-rc.5`.
+- `engines.dsh`: `>=0.2.1-rc.3 <0.2.3-0`; verified on DSH `0.2.2-rc.1` (the 0.2.1 line stays in range).
+- Since 0.2.2, DSH decides third-party compatibility from `engines.dsh`; when the range misses the running version it skips the whole bundle layer and marks the plugin row incompatible, which looks like "installed, but nothing happens".
 - Host half: `dsh.bundle.patch`; browser half: `dsh.client.platform: "web"`.
 
 ## Data and security

@@ -111,8 +111,9 @@ dsh plugin --profile desktop add D:\path\to\dsh-handy
 ## 兼容性
 
 - 运行平台：DSH Web 客户端。
-- 插件包声明 `engines.dsh`：`>=0.2.1-rc.3 <0.2.2-0`。
-- 当前在 DSH `0.2.1-rc.5` 上构建和验证。
+- 插件包声明 `engines.dsh`：`>=0.2.1-rc.3 <0.2.3-0`。
+- 当前在 DSH `0.2.2-rc.1` 上构建和验证（0.2.1 系列同样在范围内）。
+- 0.2.2 起 DSH 以 `engines.dsh` 为准判断第三方插件兼容性；声明范围不覆盖当前版本时，整个 bundle 层会被跳过并把插件行标记为不兼容，表现为插件「装了但完全没反应」。
 - 通过 `dsh.bundle.patch` 挂载 Host 半部分；浏览器半部分由 `dsh.client.platform: "web"` 和 `dsh.client.inject` 声明。
 - 不依赖额外 npm 运行时包；官方 DSH 客户端包由宿主提供。
 
