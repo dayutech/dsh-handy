@@ -15,7 +15,7 @@ The marketplace (dshmarket) reads [awesome-dsh-plugin](https://github.com/awesom
    npm run pack:dry
    ```
 
-5. Optional: publish `dsh-handy@0.8.1` to npm; while the package is unpublished the README uses the GitHub install URL.
+5. Published on npm as `dsh-handy@0.8.1`; the README's primary install path uses the npm package name.
 
 ## Submission file
 

@@ -90,7 +90,13 @@ dsh-handy 是一个 DeepSeek Harness Web 增强插件，集中提供会话笔记
 
 ## 安装
 
-当前版本尚未发布到 npm，直接从 GitHub 安装：
+从 npm 安装（推荐，预构建包，安装时不需要构建）：
+
+```powershell
+dsh plugin --profile desktop add dsh-handy
+```
+
+从 GitHub 源码安装：
 
 ```powershell
 dsh plugin --profile desktop add https://github.com/dayutech/dsh-handy
@@ -104,7 +110,7 @@ dsh plugin --profile desktop add D:\path\to\dsh-handy
 
 如果使用 CLI profile，把 `desktop` 换成实际 profile 名。安装后重启对应的 Harness 进程并刷新页面。
 
-> npm 包发布后，可以把上面的 GitHub 地址换成 `dsh-handy`；在发布前请不要使用 `dsh plugin add dsh-handy`，该名称目前仍返回 404。
+> 最新版本 `0.8.1`，要求 DSH `>=0.2.1-rc.3 <0.2.3-0`；npm 包与 GitHub 仓库内容一致。
 
 也可以在 `~/.dsh/profiles/<profile>/package.json` 中把本包加入依赖，并确保 `dsh.profile.bundles` 包含 `dsh-handy`。
 

@@ -56,7 +56,13 @@ Right-click any dock tab for close current, close left, close right, or close al
 
 ## Install
 
-The npm package is not published yet. Install from GitHub:
+From npm (recommended: a prebuilt tarball, no build step on install):
+
+```powershell
+dsh plugin --profile desktop add dsh-handy
+```
+
+From the GitHub source:
 
 ```powershell
 dsh plugin --profile desktop add https://github.com/dayutech/dsh-handy
