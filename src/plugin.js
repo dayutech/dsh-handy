@@ -19,6 +19,7 @@ import { KeyInfoPanel } from "./key-info.js";
 import { installGroupSidebar, installWorkspaceMenu } from "./groups.js";
 import { installWorkspaceSort } from "./workspace-sort.js";
 import { installForkCopy } from "./fork-copy.js";
+import { installComposerHistory } from "./composer-history.js";
 import { forkableTurns, readEntries, formatTime, excerpt } from "./session.js";
 function apply(ctx) {
   injectStyle();
@@ -38,6 +39,7 @@ function apply(ctx) {
   installWorkspaceMenu(ctx, actions, t);
   installWorkspaceSort(ctx);
   installForkCopy(ctx, actions);
+  installComposerHistory(ctx);
   ctx.effect(
     () => () => {
       closeActiveMenu();

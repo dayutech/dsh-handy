@@ -1,6 +1,6 @@
 # dsh-handy
 
-A DeepSeek Harness Web plugin that adds per-session notes, a draggable key-information panel, turn-level forks with notebook/key-information inheritance, workspace-scoped session groups, session highlighting, running-workspace prioritization, and bulk close actions for every right-sidebar tab.
+A DeepSeek Harness Web plugin that adds per-session notes, a draggable key-information panel, turn-level forks with notebook/key-information inheritance, workspace-scoped session groups, session highlighting, running-workspace prioritization, composer history, and bulk close actions for every right-sidebar tab.
 
 [中文](README.md)
 
@@ -9,6 +9,7 @@ A DeepSeek Harness Web plugin that adds per-session notes, a draggable key-infor
 - **Per-session notebook** — a `对话 / 轨迹 / 笔记本` view with auto-saved local notes.
 - **Key-information panel** — a draggable per-session panel for targets, SSH/Web/database credentials, and free-form notes. It stays inside the conversation column, follows the column when the right sidebar opens, supports per-item injection, and keeps inject/copy/delete actions visible when an item is collapsed. The collapsed badge can be right-dragged.
 - **Fork inheritance** — native fork and `/fork` copy the source session's notebook and key information, including collapsed-item and panel-position state.
+- **Composer history** — `↑` in an empty composer recalls sent messages of the current session; `↓` walks forward and restores the pre-history draft. Editing leaves history mode.
 - **Workspace session groups** — logical folders under a workspace, with up to three levels of nesting and drag-to-group support.
 - **Session highlighting** — star important sessions from the row or the row menu.
 - **Running-workspace priority** — workspaces with a running session or running subagent move to the top and use a blue running spinner.
@@ -47,6 +48,10 @@ A workspace containing a running session or a running subagent of one of its ses
 ### Right-sidebar tab close
 
 Right-click any dock tab for close current, close left, close right, or close all. The actions are attached to the dock tab menu rather than to a file-only path, so file, preview, terminal, and future dock tab kinds use the same actions. The dock's built-in close menu row is hidden to avoid two close-current entries; the tab's own X control remains available.
+
+### Composer history
+
+With the composer focused and empty, `↑` recalls the previous user message sent in the current session; `↓` walks forward again. The recalled text lands in the composer and stays editable. In a multi-line message the arrows first move the caret between lines and only switch history at the first or last line. Pressing `↓` past the newest message, or `Esc`, restores the draft that was there before history browsing started. Typing, pasting, or an IME burst leaves history mode so the edit is never overwritten, and a draft carrying attachments or references is not treated as an empty prompt. History comes from the session event log, so it survives a reload; only real user prompts are included, consecutive duplicates collapse, and the newest 100 are kept.
 
 ## Screenshots
 

@@ -1,6 +1,6 @@
 {
   "name": "dsh-handy",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "DeepSeek Harness Web plugin with per-session notes, a draggable key-information panel, fork inheritance of notes and key information, workspace-scoped session groups, highlighting, running-workspace prioritization, and bulk close actions for every right-sidebar tab.",
   "type": "module",
   "main": "lib/index.js",
